@@ -12,9 +12,8 @@ const int BTN_PIN_G = 26;
 const int LED_PIN_R = 4;
 const int LED_PIN_G = 6;
 
-QueueHandle_t xQueueButId;
-SemaphoreHandle_t xSemaphore_r;
-SemaphoreHandle_t xSemaphore_g;
+QueueHandle_t xQueueRed;
+QueueHandle_t xQueueGreen;
 
 void btn_callback(uint gpio, uint32_t events) {
     if (events == 0x4) { // fall edge
@@ -32,6 +31,7 @@ void btn_callback(uint gpio, uint32_t events) {
 void led_1_task(void *p) {
     gpio_init(LED_PIN_R);
     gpio_set_dir(LED_PIN_R, GPIO_OUT);
+    gpio_put(LED_PIN_R, 0);
 
     int delay = 0;
 
@@ -52,6 +52,7 @@ void led_1_task(void *p) {
 void led_2_task(void *p) {
     gpio_init(LED_PIN_G);
     gpio_set_dir(LED_PIN_G, GPIO_OUT);
+    gpio_put(LED_PIN_G, 0);
 
     int delay = 0;
 

@@ -1,4 +1,4 @@
-name: exe1
+name: exe3
 author: Rafael Corsi
 version: 1
 
@@ -14,11 +14,7 @@ steps:
       part-id: btnr
       control: pressed
       value: 0
-  - delay: 100ms
 
-  - wait-pin-change:
-      part-id: ledr
-      pin: A
   - wait-pin-change:
       part-id: ledr
       pin: A
@@ -26,6 +22,8 @@ steps:
       part-id: ledg
       pin: A
       value: 0
+
+  - delay: 500ms
 
   - set-control:
       part-id: btng
@@ -36,17 +34,13 @@ steps:
       part-id: btng
       control: pressed
       value: 0
-  - delay: 100ms
 
-  - wait-pin-change:
-      part-id: ledr
-      pin: A
   - wait-pin-change:
       part-id: ledg
       pin: A
-  - wait-pin-change:
+  - expect-pin:
       part-id: ledr
       pin: A
-  - wait-pin-change:
+      value: 0
       part-id: ledg
       pin: A

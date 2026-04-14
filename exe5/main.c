@@ -40,6 +40,7 @@ void btn_callback(uint gpio, uint32_t events) {
 void led_r_task(void *p) {
     gpio_init(LED_PIN_R);
     gpio_set_dir(LED_PIN_R, GPIO_OUT);
+    gpio_put(LED_PIN_R, 0);
 
     while (true) {
         int msg;
@@ -55,6 +56,7 @@ void led_r_task(void *p) {
 void led_y_task(void *p) {
     gpio_init(LED_PIN_Y);
     gpio_set_dir(LED_PIN_Y, GPIO_OUT);
+    gpio_put(LED_PIN_Y, 0);
 
     while (true) {
         int msg;

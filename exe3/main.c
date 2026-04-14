@@ -17,8 +17,7 @@ QueueHandle_t xQueueGreen;
 
 void led_1_task(void *p) {
     gpio_init(LED_PIN_R);
-    gpio_set_dir(LED_PIN_R, GPIO_OUT);
-
+    gpio_set_dir(LED_PIN_R, GPIO_OUT);  gpio_put(LED_PIN_R, 0);
     int delay = 0;
     while (true) {
         if (xQueueReceive(xQueueRed, &delay, 0)) {
@@ -37,6 +36,7 @@ void led_1_task(void *p) {
 void led_2_task(void *p) {
     gpio_init(LED_PIN_G);
     gpio_set_dir(LED_PIN_G, GPIO_OUT);
+    gpio_put(LED_PIN_G, 0);
 
     int delay = 0;
     while (true) {
