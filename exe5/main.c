@@ -41,22 +41,13 @@ void led_r_task(void *p) {
     gpio_init(LED_PIN_R);
     gpio_set_dir(LED_PIN_R, GPIO_OUT);
 
-    bool blinking = false;
-
     while (true) {
         int msg;
-        if (xQueueReceive(xQueueRed, &msg, 0)) {
-            if (msg == 1) blinking = !blinking;
-        }
-
-        if (blinking) {
+        if (xQueueReceive(xQueueRed, &msg, portMAX_DELAY)) {
             gpio_put(LED_PIN_R, 1);
             vTaskDelay(pdMS_TO_TICKS(100));
             gpio_put(LED_PIN_R, 0);
             vTaskDelay(pdMS_TO_TICKS(100));
-        } else {
-            gpio_put(LED_PIN_R, 0);
-            vTaskDelay(pdMS_TO_TICKS(10));
         }
     }
 }
@@ -65,22 +56,13 @@ void led_y_task(void *p) {
     gpio_init(LED_PIN_Y);
     gpio_set_dir(LED_PIN_Y, GPIO_OUT);
 
-    bool blinking = false;
-
     while (true) {
         int msg;
-        if (xQueueReceive(xQueueYellow, &msg, 0)) {
-            if (msg == 1) blinking = !blinking;
-        }
-
-        if (blinking) {
+        if (xQueueReceive(xQueueYellow, &msg, portMAX_DELAY)) {
             gpio_put(LED_PIN_Y, 1);
             vTaskDelay(pdMS_TO_TICKS(100));
             gpio_put(LED_PIN_Y, 0);
             vTaskDelay(pdMS_TO_TICKS(100));
-        } else {
-            gpio_put(LED_PIN_Y, 0);
-            vTaskDelay(pdMS_TO_TICKS(10));
         }
     }
 }
