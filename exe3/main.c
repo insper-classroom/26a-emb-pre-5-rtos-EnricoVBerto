@@ -12,7 +12,7 @@ const int BTN_GREEN_PIN = 26;
 const int LED_RED_PIN = 4;
 const int LED_GREEN_PIN = 6;
 
-QueueHandle_t redButtonQueue;
+QueueHandle_t xQueueButId;
 QueueHandle_t greenButtonQueue;
 
 void redLedTask(void *p) {
@@ -21,7 +21,7 @@ void redLedTask(void *p) {
 
     int redDelay = 0;
     while (true) {
-        if (xQueueReceive(redButtonQueue, &redDelay, 0)) {
+        if (xQueueReceive(xQueueButId, &redDelay, 0)) {
             printf("%d\n", redDelay);
         }
 
@@ -53,7 +53,7 @@ void redBtnTask(void *p) {
                 redDelay = 100;
             }
             printf("delay btn %d \n", redDelay);
-            xQueueSend(redButtonQueue, &redDelay, 0);
+            xQueueSend(xQueueButId, &redDelay, 0);
         }
     }
 }
@@ -106,7 +106,7 @@ int main() {
     stdio_init_all();
     printf("Start RTOS \n");
 
-    redButtonQueue = xQueueCreate(32, sizeof(int));
+    xQueueButId = xQueueCreate(32, sizeof(int));
     greenButtonQueue = xQueueCreate(32, sizeof(int));
 
     xTaskCreate(redLedTask, "LED_Task 1", 256, NULL, 1, NULL);
